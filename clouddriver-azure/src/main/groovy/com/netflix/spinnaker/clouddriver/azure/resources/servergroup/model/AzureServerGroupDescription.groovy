@@ -74,6 +74,9 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
   List<VirtualMachineScaleSetDataDisk> dataDisks
   Boolean useSystemManagedIdentity = false
   String userAssignedIdentities
+  Boolean useTerminationProfile = false
+  // number of minutes
+  String terminationNotBeforeTimeout
 
   static class AzureScaleSetSku {
     String name
@@ -94,7 +97,6 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
     int frontEndPortRangeStart
     int frontEndPortRangeEnd
     int backendPort
-
   }
 
   static class AzureExtensionCustomScriptSettings {
@@ -186,7 +188,7 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
     if (!azureSG.image.isCustom) {
       // Azure server group which was created using Azure Market Store images will have a number of storage accounts
       //   that were created at the time the server group was created; these storage account should be in saved in the
-      //   tags map under storrageAccountNames key as a comma separated list of strings
+      //   tags map under storageAccountNames key as a comma separated list of strings
       azureSG.storageAccountNames = new ArrayList<String>()
       String storageNames = scaleSet.tags?.storageAccountNames
 
@@ -209,6 +211,12 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
       }
     }
 
+    if (scaleSet.virtualMachineProfile() != null
+      && scaleSet.virtualMachineProfile().scheduledEventsProfile() != null
+      && scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile() != null) {
+      azureSG.useTerminationProfile = scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile().enable()
+      azureSG.terminationNotBeforeTimeout = scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile().notBeforeTimeout()
+    }
 
     azureSG.region = scaleSet.location()
     azureSG.upgradePolicy = getPolicyFromMode(scaleSet.upgradePolicy().mode().name())

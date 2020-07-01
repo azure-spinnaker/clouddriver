@@ -371,7 +371,7 @@ class AzureServerGroupResourceTemplate {
         // else create an user assigned identity with optional system managed identity (if it is enabled)
         identity = new UserAndOptionalSystemAssignedIdentity(description.useSystemManagedIdentity, userAssignedIdentities)
       }
-      
+
       def currentTime = System.currentTimeMillis()
       tags = [:]
       tags.createdTime = currentTime.toString()
@@ -445,7 +445,34 @@ class AzureServerGroupResourceTemplate {
     }
   }
 
+  interface ScheduledEventsProfile {
+    TerminateNotificationProfile terminateNotificationProfile
+  }
 
+  // Termination Notification Profile
+  interface TerminateNotificationProfile {
+    String notBeforeTimeout
+    Boolean enable
+  }
+
+  // Scheduled Event Profiles
+  static class VirtualMachineScaleSetScheduledEventsProfile implements ScheduledEventsProfile {
+    TerminateNotificationProfile terminateNotificationProfile
+
+    VirtualMachineScaleSetScheduledEventsProfile(AzureServerGroupDescription description) {
+      terminateNotificationProfile = new VirtualMachineScaleSetTerminateNotificationProfile(description)
+    }
+  }
+
+  static class VirtualMachineScaleSetTerminateNotificationProfile implements TerminateNotificationProfile {
+    String notBeforeTimeout
+    Boolean enable
+
+    VirtualMachineScaleSetTerminateNotificationProfile(AzureServerGroupDescription description) {
+      notBeforeTimeout = description.terminationNotBeforeTimeout
+      enable = description.useTerminationProfile
+    }
+  }
 
   // ***Scale Set None/System Managed Identity
   static class ManagedIdentity {
@@ -692,6 +719,7 @@ class AzureServerGroupResourceTemplate {
     StorageProfile storageProfile
     ScaleSetOsProfile osProfile
     ScaleSetNetworkProfileProperty networkProfile
+    ScheduledEventsProfile scheduledEventsProfile
 
     ScaleSetVMProfileProperty(AzureServerGroupDescription description) {
       storageProfile = description.image.isCustom ?
@@ -705,6 +733,7 @@ class AzureServerGroupResourceTemplate {
         osProfile = new ScaleSetOsProfileProperty(description)
       }
 
+      scheduledEventsProfile = new VirtualMachineScaleSetScheduledEventsProfile(description)
       networkProfile = new ScaleSetNetworkProfileProperty(description)
     }
   }

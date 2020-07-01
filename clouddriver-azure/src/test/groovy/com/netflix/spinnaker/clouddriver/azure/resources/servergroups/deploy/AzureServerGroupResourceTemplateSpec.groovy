@@ -298,6 +298,12 @@ class AzureServerGroupResourceTemplateSpec extends Specification {
           "imageReference" : "[variables('imageReference')]",
           "dataDisks" : null
         },
+        "scheduledEventsProfile": {
+          "terminateNotificationProfile": {
+            "notBeforeTimeout":"PT15M",
+            "enable":true
+          }
+        },
         "osProfile" : {
           "computerNamePrefix" : "azureMASM-",
           "adminUsername" : "[parameters('vmUserName')]",
@@ -436,6 +442,12 @@ class AzureServerGroupResourceTemplateSpec extends Specification {
             "id" : "/subscriptions/faab228d-df7a-4086-991e-e81c4659d41a/resourceGroups/zhqqi-sntest/providers/Microsoft.Compute/images/hello-karyon-rxnetty-all-20190125054410-ubuntu-1604"
           },
           "dataDisks" : null
+        },
+        "scheduledEventsProfile": {
+          "terminateNotificationProfile": {
+            "notBeforeTimeout":"PT15M",
+            "enable":true
+          }
         },
         "osProfile" : {
           "computerNamePrefix" : "azureMASM-",
@@ -608,6 +620,12 @@ class AzureServerGroupResourceTemplateSpec extends Specification {
           },
           "imageReference" : "[variables('imageReference')]",
           "dataDisks" : null
+        },
+        "scheduledEventsProfile": {
+          "terminateNotificationProfile": {
+            "notBeforeTimeout":"PT15M",
+            "enable":true
+          }
         },
         "osProfile" : {
           "computerNamePrefix" : "azureMASM-",
@@ -796,6 +814,12 @@ class AzureServerGroupResourceTemplateSpec extends Specification {
           "imageReference" : "[variables('imageReference')]",
           "dataDisks" : null
         },
+        "scheduledEventsProfile": {
+          "terminateNotificationProfile": {
+            "notBeforeTimeout":"PT15M",
+            "enable":true
+          }
+        },
         "osProfile" : {
           "computerNamePrefix" : "azureMASM",
           "adminUsername" : "[parameters('vmUserName')]",
@@ -982,6 +1006,12 @@ class AzureServerGroupResourceTemplateSpec extends Specification {
           },
           "imageReference" : "[variables('imageReference')]",
           "dataDisks" : null
+        },
+        "scheduledEventsProfile": {
+          "terminateNotificationProfile": {
+            "notBeforeTimeout":"PT15M",
+            "enable":true
+          }
         },
         "osProfile" : {
           "computerNamePrefix" : "azureMASM-",
@@ -1170,6 +1200,12 @@ class AzureServerGroupResourceTemplateSpec extends Specification {
           },
           "imageReference" : "[variables('imageReference')]",
           "dataDisks" : null
+        },
+        "scheduledEventsProfile": {
+          "terminateNotificationProfile": {
+            "notBeforeTimeout":"PT15M",
+            "enable":true
+          }
         },
         "osProfile" : {
           "computerNamePrefix" : "azureMASM-",
@@ -1360,6 +1396,12 @@ class AzureServerGroupResourceTemplateSpec extends Specification {
           },
           "imageReference" : "[variables('imageReference')]",
           "dataDisks" : null
+        },
+        "scheduledEventsProfile": {
+          "terminateNotificationProfile": {
+            "notBeforeTimeout":"PT15M",
+            "enable":true
+          }
         },
         "osProfile" : {
           "computerNamePrefix" : "azureMASM-",
