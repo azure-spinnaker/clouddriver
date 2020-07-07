@@ -18,6 +18,7 @@ package com.netflix.spinnaker.clouddriver.azure.resources.servergroup.model
 
 import com.google.common.collect.Sets
 import com.microsoft.azure.management.compute.ResourceIdentityType
+import com.microsoft.azure.management.compute.TerminateNotificationProfile
 import com.microsoft.azure.management.compute.VirtualMachineScaleSetDataDisk
 import com.microsoft.azure.management.compute.implementation.VirtualMachineScaleSetInner
 import com.netflix.frigga.Names
@@ -76,7 +77,7 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
   String userAssignedIdentities
   Boolean useTerminationProfile = false
   // number of minutes
-  String terminationNotBeforeTimeout
+  Integer terminationNotBeforeTimeout = 15
 
   static class AzureScaleSetSku {
     String name
@@ -211,11 +212,14 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
       }
     }
 
-    if (scaleSet.virtualMachineProfile() != null
-      && scaleSet.virtualMachineProfile().scheduledEventsProfile() != null
-      && scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile() != null) {
-      azureSG.useTerminationProfile = scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile().enable()
-      azureSG.terminationNotBeforeTimeout = scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile().notBeforeTimeout()
+    Optional<TerminateNotificationProfile> termProfile = Optional.ofNullable(scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile())
+    if (termProfile.isPresent())
+    {
+      azureSG.useTerminationProfile = termProfile.enable()
+      String[] str = termProfile.notBeforeTimeout().findAll( /\d+/ )*.toInteger()
+      if (str.size() > 0) {
+        azureSG.terminationNotBeforeTimeout = str[0]
+      }
     }
 
     azureSG.region = scaleSet.location()

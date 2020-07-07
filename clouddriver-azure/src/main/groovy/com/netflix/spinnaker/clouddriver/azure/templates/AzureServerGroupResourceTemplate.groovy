@@ -445,31 +445,21 @@ class AzureServerGroupResourceTemplate {
     }
   }
 
-  interface ScheduledEventsProfile {
-    TerminateNotificationProfile terminateNotificationProfile
-  }
-
-  // Termination Notification Profile
-  interface TerminateNotificationProfile {
-    String notBeforeTimeout
-    Boolean enable
-  }
-
   // Scheduled Event Profiles
-  static class VirtualMachineScaleSetScheduledEventsProfile implements ScheduledEventsProfile {
+  static class ScheduledEventsProfile {
     TerminateNotificationProfile terminateNotificationProfile
 
-    VirtualMachineScaleSetScheduledEventsProfile(AzureServerGroupDescription description) {
-      terminateNotificationProfile = new VirtualMachineScaleSetTerminateNotificationProfile(description)
+    ScheduledEventsProfile(AzureServerGroupDescription description) {
+      terminateNotificationProfile = new TerminateNotificationProfile(description)
     }
   }
 
-  static class VirtualMachineScaleSetTerminateNotificationProfile implements TerminateNotificationProfile {
+  static class TerminateNotificationProfile {
     String notBeforeTimeout
     Boolean enable
 
-    VirtualMachineScaleSetTerminateNotificationProfile(AzureServerGroupDescription description) {
-      notBeforeTimeout = description.terminationNotBeforeTimeout
+    TerminateNotificationProfile(AzureServerGroupDescription description) {
+      notBeforeTimeout = "PT" + description.terminationNotBeforeTimeout + "M"
       enable = description.useTerminationProfile
     }
   }
@@ -733,7 +723,7 @@ class AzureServerGroupResourceTemplate {
         osProfile = new ScaleSetOsProfileProperty(description)
       }
 
-      scheduledEventsProfile = new VirtualMachineScaleSetScheduledEventsProfile(description)
+      scheduledEventsProfile = new ScheduledEventsProfile(description)
       networkProfile = new ScaleSetNetworkProfileProperty(description)
     }
   }
