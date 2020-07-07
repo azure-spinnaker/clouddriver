@@ -212,8 +212,11 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
       }
     }
 
-    Optional<TerminateNotificationProfile> termProfile = Optional.ofNullable(scaleSet.virtualMachineProfile().scheduledEventsProfile().terminateNotificationProfile())
-    if (termProfile.isPresent())
+    azureSG.region = scaleSet.location()
+    azureSG.upgradePolicy = getPolicyFromMode(scaleSet.upgradePolicy().mode().name())
+
+    def termProfile = scaleSet.virtualMachineProfile()?.scheduledEventsProfile()?.terminateNotificationProfile()
+    if (termProfile)
     {
       azureSG.useTerminationProfile = termProfile.enable()
       String[] str = termProfile.notBeforeTimeout().findAll( /\d+/ )*.toInteger()
@@ -221,9 +224,6 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
         azureSG.terminationNotBeforeTimeout = str[0]
       }
     }
-
-    azureSG.region = scaleSet.location()
-    azureSG.upgradePolicy = getPolicyFromMode(scaleSet.upgradePolicy().mode().name())
 
     // Get the image reference data
     def storageProfile = scaleSet.virtualMachineProfile()?.storageProfile()
