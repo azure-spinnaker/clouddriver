@@ -111,9 +111,11 @@ class CreateAzureServerGroupWithAzureLoadBalancerAtomicOperation implements Atom
         }
       }
 
-      resourceGroupName = description.resourceGroupName ?:
-          AzureUtilities.getResourceGroupName(
-              description.getApplication(), description.getRegion());
+      resourceGroupName =
+          description.resourceGroupName == null || description.resourceGroupName == ""
+              ? AzureUtilities.getResourceGroupName(
+                  description.getApplication(), description.getRegion())
+              : description.resourceGroupName;
 
       String loadBalancerName = description.getLoadBalancerName();
 
