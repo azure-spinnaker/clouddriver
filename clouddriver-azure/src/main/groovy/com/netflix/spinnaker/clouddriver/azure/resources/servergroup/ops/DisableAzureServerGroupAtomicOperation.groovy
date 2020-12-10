@@ -58,7 +58,7 @@ class DisableAzureServerGroupAtomicOperation implements AtomicOperation<Void> {
     def errList = new ArrayList<String>()
 
     try {
-      String resourceGroupName = AzureUtilities.getResourceGroupName(description.application, region)
+      String resourceGroupName = description.resourceGroupName ?: AzureUtilities.getResourceGroupName(description.application, region)
       AzureServerGroupDescription serverGroupDescription = description.credentials.computeClient.getServerGroup(resourceGroupName, description.name)
 
       if (!serverGroupDescription) {

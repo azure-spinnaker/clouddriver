@@ -37,6 +37,7 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
     Automatic, Manual
   }
 
+  String resourceGroupName
   Set<AzureInstance> instances
   Set<String> loadBalancers
   Set<String> securityGroups
@@ -166,6 +167,7 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
     // Get the values from the tags if they exist
     azureSG.tags = scaleSet.tags ? scaleSet.tags : [:]
     // favor tag settings then Frigga name parser
+    azureSG.resourceGroupName = azureSG.resourceGroupName
     azureSG.appName = scaleSet.tags?.appName ?: parsedName.app
     azureSG.stack = scaleSet.tags?.stack ?: parsedName.stack
     azureSG.detail = scaleSet.tags?.detail ?: parsedName.detail

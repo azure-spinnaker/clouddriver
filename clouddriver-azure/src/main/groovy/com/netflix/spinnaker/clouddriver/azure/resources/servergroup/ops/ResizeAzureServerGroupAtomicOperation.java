@@ -95,7 +95,7 @@ public class ResizeAzureServerGroupAtomicOperation implements AtomicOperation<Vo
     ArrayList<String> errList = new ArrayList<String>();
 
     try {
-      String resourceGroupName =
+      String resourceGroupName = description.resourceGroupName ?:
           AzureUtilities.getResourceGroupName(description.getApplication(), region);
       AzureServerGroupDescription serverGroupDescription =
           description
