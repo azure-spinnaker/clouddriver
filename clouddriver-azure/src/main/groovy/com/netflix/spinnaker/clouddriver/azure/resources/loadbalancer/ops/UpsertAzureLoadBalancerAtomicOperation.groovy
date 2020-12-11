@@ -58,7 +58,7 @@ class UpsertAzureLoadBalancerAtomicOperation implements AtomicOperation<Map> {
 
       task.updateStatus(BASE_PHASE, "Beginning load balancer deployment")
 
-      resourceGroupName = AzureUtilities.getResourceGroupName(description.appName, description.region)
+      resourceGroupName = AzureUtilities.getResourceGroupName(description)
       // Create corresponding ResourceGroup if it's not created already
       description.credentials.resourceManagerClient.initializeResourceGroupAndVNet(resourceGroupName, null, description.region)
 

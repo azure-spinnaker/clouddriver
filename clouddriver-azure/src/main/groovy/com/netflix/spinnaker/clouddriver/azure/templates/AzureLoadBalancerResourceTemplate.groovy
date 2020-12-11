@@ -79,7 +79,6 @@ class AzureLoadBalancerResourceTemplate {
     String backendPoolID = "[concat(variables('loadBalancerID'),'/backendAddressPools/',variables('loadBalancerBackEnd'))]"
 
     LoadBalancerTemplateVariables(AzureLoadBalancerDescription description){
-      String regionName = description.region.replace(' ', '').toLowerCase()
       String resourceGroupName = AzureUtilities.getResourceGroupName(description)
 
       loadBalancerName = description.loadBalancerName.toLowerCase()

@@ -27,6 +27,7 @@ class AzureResourceOpsDescription {
   String cloudProvider
   String accountName
   String appName
+  String resourceGroupName
   String stack
   String detail
   AzureCredentials credentials

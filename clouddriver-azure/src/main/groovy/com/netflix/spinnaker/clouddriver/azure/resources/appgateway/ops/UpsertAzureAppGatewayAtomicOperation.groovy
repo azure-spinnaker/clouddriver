@@ -81,7 +81,7 @@ class UpsertAzureAppGatewayAtomicOperation implements AtomicOperation<Map> {
       }
 
       description.name = description.loadBalancerName
-      resourceGroupName = AzureUtilities.getResourceGroupName(description.appName, description.region)
+      resourceGroupName = AzureUtilities.getResourceGroupName(description)
       virtualNetworkName = AzureUtilities.getVirtualNetworkName(resourceGroupName)
 
       // Check if we are executing an edit operation on an existing application gateway (it returns null if it does not exist)

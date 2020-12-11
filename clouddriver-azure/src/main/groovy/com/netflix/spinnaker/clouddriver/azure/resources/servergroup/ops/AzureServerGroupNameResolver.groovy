@@ -51,7 +51,7 @@ class AzureServerGroupNameResolver extends AbstractServerGroupNameResolver {
 
   @Override
   List<AbstractServerGroupNameResolver.TakenSlot> getTakenSlots(String clusterName) {
-    String resourceGroupName = description.resourceGroupName ?: AzureUtilities.getResourceGroupName(AzureUtilities.getAppNameFromAzureResourceName(clusterName), region)
+    String resourceGroupName = AzureUtilities.getResourceGroupName(AzureUtilities.getAppNameFromAzureResourceName(clusterName), region)
 
     def serverGroupsInRegion = credentials.computeClient.getServerGroupsAll(region, resourceGroupName).findAll {
       Names.parseName(it.name).cluster == clusterName

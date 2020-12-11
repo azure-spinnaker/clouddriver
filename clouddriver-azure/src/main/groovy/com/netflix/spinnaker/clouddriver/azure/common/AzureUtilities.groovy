@@ -51,23 +51,8 @@ class AzureUtilities {
     if (description == null) {
       return null
     }
-    description.appName + NAME_SEPARATOR + description.region
-  }
 
-  static String getVirtualNetworkName(String resourceGroupName) {
-    if (resourceGroupName == null) {
-      return null
-    }
-    VNET_NAME_PREFIX + resourceGroupName
-  }
-
-  static String getSubnetName(String virtualNetworkName, String addressPrefix) {
-    if (virtualNetworkName == null || addressPrefix == null) {
-      return null
-    }
-
-    String addressPrefixSanitized = addressPrefix.replaceAll('[\\./]', '_')
-    virtualNetworkName + NAME_SEPARATOR + SUBNET_NAME_PREFIX + addressPrefixSanitized
+    description.resourceGroupName ?: description.appName + NAME_SEPARATOR + description.region.replace(' ', '').toLowerCase()
   }
 
   static String getResourceGroupName(String appName, String region) {
@@ -90,6 +75,22 @@ class AzureUtilities {
     } else {
       return null
     }
+  }
+
+  static String getVirtualNetworkName(String resourceGroupName) {
+    if (resourceGroupName == null) {
+      return null
+    }
+    VNET_NAME_PREFIX + resourceGroupName
+  }
+
+  static String getSubnetName(String virtualNetworkName, String addressPrefix) {
+    if (virtualNetworkName == null || addressPrefix == null) {
+      return null
+    }
+
+    String addressPrefixSanitized = addressPrefix.replaceAll('[\\./]', '_')
+    virtualNetworkName + NAME_SEPARATOR + SUBNET_NAME_PREFIX + addressPrefixSanitized
   }
 
   static String getAppNameFromAzureResourceName(String azureResourceName) {

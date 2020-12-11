@@ -56,7 +56,7 @@ class UpsertAzureSecurityGroupAtomicOperation implements AtomicOperation<Map> {
 
       task.updateStatus(BASE_PHASE, "Beginning security group deployment")
 
-      String resourceGroupName = AzureUtilities.getResourceGroupName(description.appName, description.region)
+      String resourceGroupName = AzureUtilities.getResourceGroupName(description)
 
       // Create corresponding ResourceGroup if it's not created already
       description.credentials.resourceManagerClient.initializeResourceGroupAndVNet(resourceGroupName, null, description.region)

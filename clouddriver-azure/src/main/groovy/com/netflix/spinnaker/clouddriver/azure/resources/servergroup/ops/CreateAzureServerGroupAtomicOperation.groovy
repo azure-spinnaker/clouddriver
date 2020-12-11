@@ -82,7 +82,7 @@ class CreateAzureServerGroupAtomicOperation implements AtomicOperation<Map> {
         description.image.ostype = virtualMachineImage?.osDiskImage?.operatingSystem
       }
 
-      resourceGroupName = description.resourceGroupName ?: AzureUtilities.getResourceGroupName(description.application, description.region)
+      resourceGroupName = AzureUtilities.getResourceGroupName(description)
 
       // TODO: replace appGatewayName with loadBalancerName
       if (!description.appGatewayName) {

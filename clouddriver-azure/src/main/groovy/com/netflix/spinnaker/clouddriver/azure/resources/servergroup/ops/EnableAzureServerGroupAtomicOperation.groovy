@@ -58,7 +58,7 @@ class EnableAzureServerGroupAtomicOperation implements AtomicOperation<Void> {
     def errList = new ArrayList<String>()
 
     try {
-      String resourceGroupName = description.resourceGroupName ?: AzureUtilities.getResourceGroupName(description.application, region)
+      String resourceGroupName = AzureUtilities.getResourceGroupName(description)
       AzureServerGroupDescription serverGroupDescription = description.credentials.computeClient.getServerGroup(resourceGroupName, description.name)
 
       if (!serverGroupDescription) {

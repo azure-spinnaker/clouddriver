@@ -37,7 +37,6 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
     Automatic, Manual
   }
 
-  String resourceGroupName
   Set<AzureInstance> instances
   Set<String> loadBalancers
   Set<String> securityGroups

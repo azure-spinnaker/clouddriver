@@ -50,7 +50,7 @@ class DeleteAzureSecurityGroupAtomicOperation implements AtomicOperation<Void> {
       }
 
       try {
-        String resourceGroupName = AzureUtilities.getResourceGroupName(description.appName, region)
+        String resourceGroupName = description.resourceGroupName ?: AzureUtilities.getResourceGroupName(description.appName, region)
 
         description
           .credentials

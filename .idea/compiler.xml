@@ -6,19 +6,22 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.12/48e4e5d60309ebd833bc528dcf77668eab3cd72c/lombok-1.18.12.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.10/625fc0055674dff70dbc76efa36d0f2c89b04a24/lombok-1.18.10.jar" />
         </processorPath>
         <module name="clouddriver.clouddriver-artifacts.test" />
         <module name="clouddriver.clouddriver-azure.test" />
         <module name="clouddriver.clouddriver-huaweicloud.test" />
         <module name="clouddriver.clouddriver-lambda.test" />
+        <module name="clouddriver.clouddriver-kubernetes-v2.test" />
         <module name="clouddriver.clouddriver-saga-test.test" />
         <module name="clouddriver.clouddriver-titus.test" />
         <module name="clouddriver.clouddriver-web.test" />
         <module name="clouddriver.clouddriver-ecs.test" />
         <module name="clouddriver.cats.cats-core.test" />
+        <module name="clouddriver.clouddriver-oracle.test" />
         <module name="clouddriver.cats.cats-sql.test" />
         <module name="clouddriver.clouddriver-cloudfoundry.test" />
+        <module name="clouddriver.clouddriver-kubernetes-v1.test" />
         <module name="clouddriver.clouddriver-security.test" />
         <module name="clouddriver.cats.cats-redis.test" />
         <module name="clouddriver.clouddriver-elasticsearch-aws.test" />
@@ -27,6 +30,7 @@
         <module name="clouddriver.clouddriver-consul.test" />
         <module name="clouddriver.clouddriver-core.test" />
         <module name="clouddriver.cats.test" />
+        <module name="clouddriver.clouddriver-dcos.test" />
         <module name="clouddriver.clouddriver-core-tck.test" />
         <module name="clouddriver.clouddriver-event.test" />
         <module name="clouddriver.clouddriver-saga.test" />
@@ -37,6 +41,7 @@
         <module name="clouddriver.clouddriver-eureka.test" />
         <module name="clouddriver.clouddriver-appengine.test" />
         <module name="clouddriver.clouddriver-google.test" />
+        <module name="clouddriver.clouddriver-alicloud.test" />
         <module name="clouddriver.clouddriver-scattergather.test" />
         <module name="clouddriver.clouddriver-sql.test" />
         <module name="clouddriver.clouddriver-docker.test" />
@@ -45,8 +50,8 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.12/48e4e5d60309ebd833bc528dcf77668eab3cd72c/lombok-1.18.12.jar" />
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.2.5.RELEASE/3426cb36706915047406da672b7ee9628f5f47d6/spring-boot-configuration-processor-2.2.5.RELEASE.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.10/625fc0055674dff70dbc76efa36d0f2c89b04a24/lombok-1.18.10.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.2.4.RELEASE/26982f05ecbf96371e8a7175c814117c66d6cc4a/spring-boot-configuration-processor-2.2.4.RELEASE.jar" />
         </processorPath>
         <module name="clouddriver.clouddriver-core-tck.main" />
         <module name="clouddriver.clouddriver-core.main" />
@@ -57,6 +62,7 @@
         <module name="clouddriver.cats.main" />
         <module name="clouddriver.clouddriver-tencentcloud.main" />
         <module name="clouddriver.clouddriver-google-common.main" />
+        <module name="clouddriver.clouddriver-kubernetes-v2.main" />
         <module name="clouddriver.clouddriver-sql.main" />
         <module name="clouddriver.clouddriver-eureka.main" />
         <module name="clouddriver.clouddriver-google.main" />
@@ -64,6 +70,7 @@
         <module name="clouddriver.clouddriver-artifacts.main" />
         <module name="clouddriver.clouddriver-elasticsearch.main" />
         <module name="clouddriver.clouddriver-scattergather.main" />
+        <module name="clouddriver.clouddriver-alicloud.main" />
         <module name="clouddriver.clouddriver-sql-mysql.main" />
         <module name="clouddriver.clouddriver-web.main" />
         <module name="clouddriver.clouddriver-cloudfoundry.main" />
@@ -72,20 +79,23 @@
         <module name="clouddriver.clouddriver-lambda.main" />
         <module name="clouddriver.clouddriver-azure.main" />
         <module name="clouddriver.cats.cats-test.main" />
+        <module name="clouddriver.clouddriver-dcos.main" />
         <module name="clouddriver.clouddriver-huaweicloud.main" />
         <module name="clouddriver.clouddriver-saga-test.main" />
+        <module name="clouddriver.clouddriver-oracle.main" />
         <module name="clouddriver.cats.cats-core.main" />
         <module name="clouddriver.cats.cats-sql.main" />
         <module name="clouddriver.clouddriver-kubernetes.main" />
+        <module name="clouddriver.clouddriver-kubernetes-v1.main" />
         <module name="clouddriver.clouddriver-security.main" />
         <module name="clouddriver.clouddriver-titus.main" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.12/48e4e5d60309ebd833bc528dcf77668eab3cd72c/lombok-1.18.12.jar" />
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.2.5.RELEASE/3426cb36706915047406da672b7ee9628f5f47d6/spring-boot-configuration-processor-2.2.5.RELEASE.jar" />
-          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure-processor/2.2.5.RELEASE/d46500783ac5818097414d502f974ee874b77044/spring-boot-autoconfigure-processor-2.2.5.RELEASE.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.10/625fc0055674dff70dbc76efa36d0f2c89b04a24/lombok-1.18.10.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/2.2.4.RELEASE/26982f05ecbf96371e8a7175c814117c66d6cc4a/spring-boot-configuration-processor-2.2.4.RELEASE.jar" />
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure-processor/2.2.4.RELEASE/2ef2b0eddff694c6ff865a8a9bd95d6a704bb037/spring-boot-autoconfigure-processor-2.2.4.RELEASE.jar" />
         </processorPath>
         <module name="clouddriver.clouddriver-event.main" />
         <module name="clouddriver.clouddriver-saga.main" />

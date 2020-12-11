@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/cats/cats-redis" />
             <option value="$PROJECT_DIR$/cats/cats-sql" />
             <option value="$PROJECT_DIR$/cats/cats-test" />
+            <option value="$PROJECT_DIR$/clouddriver-alicloud" />
             <option value="$PROJECT_DIR$/clouddriver-appengine" />
             <option value="$PROJECT_DIR$/clouddriver-artifacts" />
             <option value="$PROJECT_DIR$/clouddriver-aws" />
@@ -26,6 +27,7 @@
             <option value="$PROJECT_DIR$/clouddriver-consul" />
             <option value="$PROJECT_DIR$/clouddriver-core" />
             <option value="$PROJECT_DIR$/clouddriver-core-tck" />
+            <option value="$PROJECT_DIR$/clouddriver-dcos" />
             <option value="$PROJECT_DIR$/clouddriver-docker" />
             <option value="$PROJECT_DIR$/clouddriver-ecs" />
             <option value="$PROJECT_DIR$/clouddriver-elasticsearch" />
@@ -36,7 +38,10 @@
             <option value="$PROJECT_DIR$/clouddriver-google-common" />
             <option value="$PROJECT_DIR$/clouddriver-huaweicloud" />
             <option value="$PROJECT_DIR$/clouddriver-kubernetes" />
+            <option value="$PROJECT_DIR$/clouddriver-kubernetes-v1" />
+            <option value="$PROJECT_DIR$/clouddriver-kubernetes-v2" />
             <option value="$PROJECT_DIR$/clouddriver-lambda" />
+            <option value="$PROJECT_DIR$/clouddriver-oracle" />
             <option value="$PROJECT_DIR$/clouddriver-saga" />
             <option value="$PROJECT_DIR$/clouddriver-saga-test" />
             <option value="$PROJECT_DIR$/clouddriver-scattergather" />
