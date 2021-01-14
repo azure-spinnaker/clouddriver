@@ -76,6 +76,7 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
   Boolean useSystemManagedIdentity = false
   String userAssignedIdentities
   Integer terminationNotBeforeTimeout
+  Boolean doNotRunExtensionsOnOverprovisionedVMs = false
 
   static class AzureScaleSetSku {
     String name
@@ -210,6 +211,7 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
       }
     }
 
+    azureSG.doNotRunExtensionsOnOverprovisionedVMs = scaleSet.doNotRunExtensionsOnOverprovisionedVMs()
     azureSG.region = scaleSet.location()
     azureSG.upgradePolicy = getPolicyFromMode(scaleSet.upgradePolicy().mode().name())
 
