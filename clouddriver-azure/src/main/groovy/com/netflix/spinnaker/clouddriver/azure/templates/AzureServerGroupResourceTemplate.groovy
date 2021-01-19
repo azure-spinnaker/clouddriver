@@ -110,7 +110,7 @@ class AzureServerGroupResourceTemplate {
   interface TemplateVariables {}
 
   static class CoreServerGroupTemplateVariables implements TemplateVariables {
-    final String apiVersion = "2018-10-01"
+    final String apiVersion = "2019-03-01"
     String publicIPAddressName = ""
     String publicIPAddressID = ""
     String publicIPAddressType = ""
@@ -371,7 +371,7 @@ class AzureServerGroupResourceTemplate {
         // else create an user assigned identity with optional system managed identity (if it is enabled)
         identity = new UserAndOptionalSystemAssignedIdentity(description.useSystemManagedIdentity, userAssignedIdentities)
       }
-      
+
       def currentTime = System.currentTimeMillis()
       tags = [:]
       tags.createdTime = currentTime.toString()
@@ -405,9 +405,11 @@ class AzureServerGroupResourceTemplate {
   static class VirtualMachineScaleSetProperty {
     Map<String, String> upgradePolicy = [:]
     ScaleSetVMProfile virtualMachineProfile
+    Boolean doNotRunExtensionsOnOverprovisionedVMs
 
     VirtualMachineScaleSetProperty(AzureServerGroupDescription description) {
       upgradePolicy["mode"] = description.upgradePolicy.toString()
+      doNotRunExtensionsOnOverprovisionedVMs = description.doNotRunExtensionsOnOverprovisionedVMs
 
       if (description.customScriptsSettings?.commandToExecute) {
         Collection<String> uriTemp = description.customScriptsSettings.fileUris
@@ -445,7 +447,24 @@ class AzureServerGroupResourceTemplate {
     }
   }
 
+  // Scheduled Event Profiles
+  static class ScheduledEventsProfile {
+    TerminateNotificationProfile terminateNotificationProfile
 
+    ScheduledEventsProfile(AzureServerGroupDescription description) {
+      terminateNotificationProfile = new TerminateNotificationProfile(description)
+    }
+  }
+
+  static class TerminateNotificationProfile {
+    String notBeforeTimeout
+    Boolean enable
+
+    TerminateNotificationProfile(AzureServerGroupDescription description) {
+      enable = true
+      notBeforeTimeout = "PT" + description.terminationNotBeforeTimeout + "M"
+    }
+  }
 
   // ***Scale Set None/System Managed Identity
   static class ManagedIdentity {
@@ -692,6 +711,7 @@ class AzureServerGroupResourceTemplate {
     StorageProfile storageProfile
     ScaleSetOsProfile osProfile
     ScaleSetNetworkProfileProperty networkProfile
+    ScheduledEventsProfile scheduledEventsProfile
 
     ScaleSetVMProfileProperty(AzureServerGroupDescription description) {
       storageProfile = description.image.isCustom ?
@@ -703,6 +723,10 @@ class AzureServerGroupResourceTemplate {
       }
       else{
         osProfile = new ScaleSetOsProfileProperty(description)
+      }
+
+      if (description.terminationNotBeforeTimeout != null) {
+        scheduledEventsProfile = new ScheduledEventsProfile(description)
       }
 
       networkProfile = new ScaleSetNetworkProfileProperty(description)
