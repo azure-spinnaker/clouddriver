@@ -77,6 +77,7 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
   String userAssignedIdentities
   Integer terminationNotBeforeTimeout
   Boolean doNotRunExtensionsOnOverprovisionedVMs = false
+  String timeZone
 
   static class AzureScaleSetSku {
     String name
@@ -223,6 +224,8 @@ class AzureServerGroupDescription extends AzureResourceOpsDescription implements
         azureSG.terminationNotBeforeTimeout = str[0].toInteger()
       }
     }
+
+    azureSG.timeZone = scaleSet.virtualMachineProfile()?.osProfile()?.windowsConfiguration()?.timeZone()
 
     // Get the image reference data
     def storageProfile = scaleSet.virtualMachineProfile()?.storageProfile()
