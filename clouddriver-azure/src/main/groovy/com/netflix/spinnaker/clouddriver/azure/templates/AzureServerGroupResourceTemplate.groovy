@@ -524,6 +524,23 @@ class AzureServerGroupResourceTemplate {
     }
   }
 
+  static class ScaleSetOsProfileWindowsConfiguration extends ScaleSetOsProfileProperty implements ScaleSetOsProfile {
+    OsProfileWindowsConfiguration windowsConfiguration
+
+    ScaleSetOsProfileWindowsConfiguration(AzureServerGroupDescription description) {
+      super(description)
+      windowsConfiguration = new OsProfileWindowsConfiguration(description)
+    }
+  }
+
+  static class OsProfileWindowsConfiguration {
+    String timeZone
+
+    OsProfileWindowsConfiguration(AzureServerGroupDescription description) {
+      timeZone = description.timeZone
+    }
+  }
+
   static class ScaleSetOsProfileLinuxConfiguration extends ScaleSetOsProfileProperty implements ScaleSetOsProfile {
     OsProfileLinuxConfiguration linuxConfiguration
 
@@ -589,6 +606,7 @@ class AzureServerGroupResourceTemplate {
    */
   static class NetworkInterfaceConfigurationProperty {
     boolean primary
+    boolean enableIpForwarding
     ArrayList<NetworkInterfaceIPConfiguration> ipConfigurations = []
 
     /**
@@ -597,6 +615,7 @@ class AzureServerGroupResourceTemplate {
      */
     NetworkInterfaceConfigurationProperty(AzureServerGroupDescription description) {
       primary = true
+      enableIpForwarding = description.enableIpForwarding
       ipConfigurations.add(new NetworkInterfaceIPConfiguration(description))
     }
   }
@@ -718,10 +737,13 @@ class AzureServerGroupResourceTemplate {
         new ScaleSetCustomManagedImageStorageProfile(description) :
         new ScaleSetStorageProfile(description)
 
-      if(description.credentials.useSshPublicKey){
+      if (description.credentials.useSshPublicKey) {
         osProfile = new ScaleSetOsProfileLinuxConfiguration(description)
       }
-      else{
+      else if (description.timeZone) {
+        osProfile = new ScaleSetOsProfileWindowsConfiguration(description)
+      }
+      else {
         osProfile = new ScaleSetOsProfileProperty(description)
       }
 
