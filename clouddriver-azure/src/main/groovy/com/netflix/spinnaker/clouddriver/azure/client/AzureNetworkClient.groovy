@@ -18,6 +18,7 @@ package com.netflix.spinnaker.clouddriver.azure.client
 
 import com.microsoft.azure.CloudException
 import com.microsoft.azure.credentials.ApplicationTokenCredentials
+import com.microsoft.azure.credentials.AzureTokenCredentials
 import com.microsoft.azure.management.network.LoadBalancer
 import com.microsoft.azure.management.network.LoadBalancerInboundNatPool
 import com.microsoft.azure.management.network.LoadBalancingRule
@@ -48,7 +49,7 @@ class AzureNetworkClient extends AzureBaseClient {
   private final Integer NAT_POOL_PORT_END = 59999
   private final Integer NAT_POOL_PORT_NUMBER_PER_POOL = 100
 
-  AzureNetworkClient(String subscriptionId, ApplicationTokenCredentials credentials, String userAgentApplicationName) {
+  AzureNetworkClient(String subscriptionId, AzureTokenCredentials credentials, String userAgentApplicationName) {
     super(subscriptionId, userAgentApplicationName, credentials)
   }
 

@@ -17,6 +17,7 @@
 package com.netflix.spinnaker.clouddriver.azure.client
 
 import com.microsoft.azure.credentials.ApplicationTokenCredentials
+import com.microsoft.azure.credentials.AzureTokenCredentials
 import com.microsoft.azure.storage.CloudStorageAccount
 import com.microsoft.azure.storage.blob.CloudBlobClient
 import com.microsoft.azure.storage.blob.CloudBlobContainer
@@ -33,7 +34,7 @@ import groovy.util.logging.Slf4j
 class AzureStorageClient extends AzureBaseClient {
   static final String AZURE_IMAGE_FILE_EXT = ".vhd"
 
-  AzureStorageClient(String subscriptionId, ApplicationTokenCredentials credentials, String userAgentApplicationName) {
+  AzureStorageClient(String subscriptionId, AzureTokenCredentials credentials, String userAgentApplicationName) {
     super(subscriptionId, userAgentApplicationName, credentials)
   }
 

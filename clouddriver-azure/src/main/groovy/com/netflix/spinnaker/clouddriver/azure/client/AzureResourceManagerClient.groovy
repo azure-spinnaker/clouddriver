@@ -18,6 +18,7 @@ package com.netflix.spinnaker.clouddriver.azure.client
 
 import com.microsoft.azure.CloudException
 import com.microsoft.azure.credentials.ApplicationTokenCredentials
+import com.microsoft.azure.credentials.AzureTokenCredentials
 import com.microsoft.azure.management.network.Network
 import com.microsoft.azure.management.resources.Deployment
 import com.microsoft.azure.management.resources.DeploymentMode
@@ -37,7 +38,7 @@ class AzureResourceManagerClient extends AzureBaseClient {
    * @param subscriptionId - Azure Subscription ID
    * @param credentials - Token Credentials to use for communication with Auzre
    */
-  AzureResourceManagerClient(String subscriptionId, ApplicationTokenCredentials credentials, String userAgentApplicationName = "") {
+  AzureResourceManagerClient(String subscriptionId, AzureTokenCredentials credentials, String userAgentApplicationName = "") {
     super(subscriptionId, userAgentApplicationName, credentials)
   }
 

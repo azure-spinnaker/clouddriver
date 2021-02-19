@@ -17,6 +17,9 @@
 package com.netflix.spinnaker.clouddriver.azure.common
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.microsoft.azure.AzureEnvironment
+import com.microsoft.azure.credentials.ApplicationTokenCredentials
+import com.microsoft.azure.credentials.MSICredentials
 import com.netflix.spinnaker.clouddriver.azure.resources.common.AzureResourceOpsDescription
 
 import java.util.regex.Matcher
@@ -308,6 +311,23 @@ class AzureUtilities {
       }
     }
     mapper.writeValueAsString(map)
+  }
+
+  static AzureEnvironment getAzureEnvironment(String configuredAzureEnvironment) {
+    switch (configuredAzureEnvironment) {
+      case "AZURE_US_GOVERNMENT":
+        return AzureEnvironment.AZURE_US_GOVERNMENT
+
+      case "AZURE_CHINA":
+        return AzureEnvironment.AZURE_CHINA
+
+      case "AZURE_GERMANY":
+        return AzureEnvironment.AZURE_GERMANY
+
+      case "AZURE":
+      default:
+        return AzureEnvironment.AZURE
+    }
   }
 
   static class ValueParameter extends Object {

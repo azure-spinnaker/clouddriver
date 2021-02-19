@@ -22,9 +22,12 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.microsoft.azure.AzureEnvironment
 import com.microsoft.azure.CloudException
 import com.microsoft.azure.credentials.ApplicationTokenCredentials
+import com.microsoft.azure.credentials.MSICredentials
 import com.microsoft.azure.management.Azure
+import com.microsoft.azure.credentials.AzureTokenCredentials
 import com.microsoft.rest.LogLevel
 import com.microsoft.rest.ServiceResponse
+import com.netflix.spinnaker.clouddriver.azure.common.AzureUtilities
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 
@@ -41,7 +44,7 @@ public abstract class AzureBaseClient {
    * Constructor
    * @param subscriptionId - the Azure subscription to use
    */
-  protected AzureBaseClient(String subscriptionId, String userAgentAppName, ApplicationTokenCredentials credentials) {
+  protected AzureBaseClient(String subscriptionId, String userAgentAppName, AzureTokenCredentials credentials) {
     this.subscriptionId = subscriptionId
     mapper = new ObjectMapper().configure(SerializationFeature.INDENT_OUTPUT, true)
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -49,7 +52,7 @@ public abstract class AzureBaseClient {
     this.azure = initialize(credentials, subscriptionId, userAgentAppName)
   }
 
-  private Azure initialize(ApplicationTokenCredentials credentials, String subscriptionId, String userAgentAppName) {
+  private Azure initialize(AzureTokenCredentials credentials, String subscriptionId, String userAgentAppName) {
     Azure.configure()
       .withLogLevel(LogLevel.NONE)
       .withUserAgent(userAgentAppName)
@@ -66,26 +69,20 @@ public abstract class AzureBaseClient {
    * @return
    */
 
-  static ApplicationTokenCredentials getTokenCredentials(String clientId, String tenantId, String secret, String configuredAzureEnvironment) {
-    if ( configuredAzureEnvironment == "AZURE_US_GOVERNMENT") {
-      return new ApplicationTokenCredentials(clientId, tenantId, secret, AzureEnvironment.AZURE_US_GOVERNMENT);
+  static AzureTokenCredentials getTokenCredentials(String clientId, String tenantId, String secret, String configuredAzureEnvironment) {
+    AzureEnvironment environment = AzureUtilities.getAzureEnvironment(configuredAzureEnvironment)
+
+    if (secret) {
+      return new ApplicationTokenCredentials(clientId, tenantId, secret, environment)
     }
-    else if ( configuredAzureEnvironment == "AZURE_CHINA") {
-      return new ApplicationTokenCredentials(clientId, tenantId, secret, AzureEnvironment.AZURE_CHINA)
-    }
-    else if ( configuredAzureEnvironment == "AZURE_GERMANY") {
-      return new ApplicationTokenCredentials(clientId, tenantId, secret, AzureEnvironment.AZURE_GERMANY)
-    }
-    else {
-      return new ApplicationTokenCredentials(clientId, tenantId, secret, AzureEnvironment.AZURE)
-    }
+    return new MSICredentials(environment).withClientId(clientId)
   }
 
   /**
    * Wrap the call to an Azure operation to handle retry attempts
    * @param operation - Operation to be execute
    * @param count - number of retry attempts
-   * @return ServiceRespone returned from operation. If response results in 404 then return null
+   * @return ServiceResponse returned from operation. If response results in 404 then return null
    */
   static <T> T executeOp(Closure<T> operation, long count = AZURE_ATOMICOPERATION_RETRY) {
 

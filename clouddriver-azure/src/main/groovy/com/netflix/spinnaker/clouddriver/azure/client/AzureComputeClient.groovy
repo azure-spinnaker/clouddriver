@@ -18,6 +18,7 @@ package com.netflix.spinnaker.clouddriver.azure.client
 
 import com.microsoft.azure.CloudException
 import com.microsoft.azure.credentials.ApplicationTokenCredentials
+import com.microsoft.azure.credentials.AzureTokenCredentials
 import com.microsoft.azure.management.compute.VirtualMachineImage
 import com.microsoft.azure.management.compute.VirtualMachineOffer
 import com.microsoft.azure.management.compute.VirtualMachinePublisher
@@ -38,7 +39,7 @@ import groovy.util.logging.Slf4j
 @CompileStatic
 public class AzureComputeClient extends AzureBaseClient {
 
-  AzureComputeClient(String subscriptionId, ApplicationTokenCredentials credentials, String userAgentApplicationName) {
+  AzureComputeClient(String subscriptionId, AzureTokenCredentials credentials, String userAgentApplicationName) {
     super(subscriptionId, userAgentApplicationName, credentials)
   }
 
